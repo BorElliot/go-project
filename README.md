@@ -12,5 +12,11 @@ Slice和Array的解析
 slice和struct的一些相关问题
 [https://www.ardanlabs.com/blog/2013/09/iterating-over-slices-in-go.html](https://www.ardanlabs.com/blog/2013/09/iterating-over-slices-in-go.html)
 
+golang articles
+[https://github.com/golang/go/wiki/Articles](https://github.com/golang/go/wiki/Articles)
+
+dev.to精彩文章
+[https://dev.to/t/go](https://dev.to/t/go)
+
 你应该在生产环境测试 
 [https://segment.com/blog/we-test-in-production-you-should-too/](https://segment.com/blog/we-test-in-production-you-should-too/)
