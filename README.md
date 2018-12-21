@@ -32,3 +32,9 @@ go编程最佳实践
 
 你应该在生产环境测试 
 [https://segment.com/blog/we-test-in-production-you-should-too/](https://segment.com/blog/we-test-in-production-you-should-too/)
+
+
+## 问题
+
+go-and-json 
+[https://eager.io/blog/go-and-json/](https://eager.io/blog/go-and-json/)

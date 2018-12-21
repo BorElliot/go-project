@@ -70,24 +70,21 @@ func show(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	row, err := db.Query("SELECT id, title, content FROM articles WHERE id = ?", request_id)
-	if err != nil {
-		panic(err.Error())
-	}
-
+	var id int
+	var title, content string
 	article := Article{}
-	for row.Next() {
-		var id int
-		var title, content string
-		err = row.Scan(&id, &title, &content)
-		if err != nil {
-			panic(err.Error())
+	err = db.QueryRow("select id, title, content from articles where id = ?", request_id).Scan(&id, &title, &content)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			errData := map[string]string{"errcode": "ER404", "errmsg": "not found"}
+			json.NewEncoder(w).Encode(errData)
+			return
 		}
-
-		article.Id = id
-		article.Title = title
-		article.Content = content
 	}
+
+	article.Id = id
+	article.Title = title
+	article.Content = content
 	json.NewEncoder(w).Encode(article)
 }
 
