@@ -13,8 +13,8 @@ import (
 
 // Article - Our struct for all articles
 type Article struct {
-	Id      int    `json:"Id"`
-	Title   string `json:"Title"`
+	Id      int    `json:"id"`
+	Title   string `json:"title"`
 	Content string `json:"content"`
 }
 
