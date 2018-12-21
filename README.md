@@ -6,6 +6,9 @@ GOLANG学习资源汇集
 优秀的GO系列教程
 [https://golangbot.com/learn-golang-series/](https://golangbot.com/learn-golang-series/)
 
+TutorialEdge Golang教程
+[https://tutorialedge.net/golang/creating-restful-api-with-golang/](https://tutorialedge.net/golang/creating-restful-api-with-golang/)
+
 Slice和Array的解析
 [https://dave.cheney.net/2018/07/12/slices-from-the-ground-up](https://dave.cheney.net/2018/07/12/slices-from-the-ground-up)
 
