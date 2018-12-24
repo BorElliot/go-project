@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
@@ -13,9 +14,10 @@ import (
 
 // Article - Our struct for all articles
 type Article struct {
-	Id      int    `json:"id"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
+	Id        int    `json:"id"`
+	Title     string `json:"title"`
+	Content   string `json:"content"`
+	CreatedAt string `json:"created_at"`
 }
 
 type Articles []Article
@@ -64,7 +66,7 @@ func show(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	request_id := vars["id"]
 
-	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/golang")
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/golang?charset=utf8&loc=Asia%2FShanghai&parseTime=true")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -72,8 +74,9 @@ func show(w http.ResponseWriter, r *http.Request) {
 
 	var id int
 	var title, content string
+	var createdAt string
 	article := Article{}
-	err = db.QueryRow("select id, title, content from articles where id = ?", request_id).Scan(&id, &title, &content)
+	err = db.QueryRow("select id, title, content, created_at from articles where id = ?", request_id).Scan(&id, &title, &content, &createdAt)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			errData := map[string]string{"errcode": "ER404", "errmsg": "not found"}
@@ -82,9 +85,13 @@ func show(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	t1, _ := time.Parse(time.RFC3339, createdAt)
+	createdAt = t1.Format("2006-01-02 15:04:05")
+
 	article.Id = id
 	article.Title = title
 	article.Content = content
+	article.CreatedAt = createdAt
 	json.NewEncoder(w).Encode(article)
 }
 
