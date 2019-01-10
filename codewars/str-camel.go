@@ -2,21 +2,18 @@ package main
 
 import (
 	"fmt"
-	"strings"
+	"regexp"
 )
 
-func ToCamelCase(str string) string {
-	temp := strings.Split(str, "-")
-	for i, r := range temp {
-		if i > 0 {
-			temp[i] = strings.Title(r)
-		}
-	}
+var re = regexp.MustCompile("(_|-)([a-zA-Z]+)")
 
-	return strings.Join(temp, "")
+func ToCamelCase(str string) string {
+	camel := re.ReplaceAllString(str, "$2")
+
+	return camel
 }
 
 func main() {
-	str := "the-stealth-warrior"
+	str := "The_Stealth_Warrior"
 	fmt.Println(ToCamelCase(str))
 }
